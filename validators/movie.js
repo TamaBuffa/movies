@@ -2,53 +2,53 @@ const {check} =require ("express-validator");
 const validateResults=require ("../utils/handleValidator")
 
 const validatorCreateItem=[
-    check("id_user")
-    .notEmpty()
-    .isString(), // Asegúrate de que id_user es un string no vacío
-    
+    check ("comment")
+    .notEmpty().withMessage("comment no puede estar vacío")
+    .isString().withMessage("comment debe ser una cadena de texto"),
+
+    check("idTmbd")
+        .notEmpty().withMessage("idTmbd no puede estar vacío") 
+        .isNumeric().withMessage("idTmbd debe ser un número"),
+
     check ("title")
-    .notEmpty(),
+        .notEmpty().withMessage("title no puede estar vacío")
+        .isString().withMessage("comment debe ser una cadena de texto"),
 
-    check ("synopsis")
-    .exists()
-    .notEmpty(),
+    check("poster_url")
+        .notEmpty().withMessage("poster_url no puede estar vacío"),
 
-    check ("release_year")
-    .exists()
-    .notEmpty(),
+    check ("overview")
+        .notEmpty().withMessage("overview no puede estar vacío")
+        .isString().withMessage("comment debe ser una cadena de texto"),
+
+    check ("releaseDate")
+        .notEmpty().withMessage("releaseDate no puede estar vacío")
+        .isString().withMessage("releaseDate debe ser una cadena de texto"),
 
     check ("runtime")
-    .exists()
-    .notEmpty(),
-
-    check ("poster_url")
-    .exists()
-    .notEmpty(),
-
-    check ("trailer")
-    .exists()
-    .notEmpty(),
-
+        .notEmpty().withMessage("runtime no puede estar vacío")
+        .isString().withMessage("runtime debe ser una cadena de texto"),
+  
    // .isMongoId(),
     (req,res,next)=>{
         return validateResults(req,res,next)
     }
 ]
 
-
+/*
 const validatorGetItem = [
-    check("id_user")
+    check("user_id")
         .exists()
         .notEmpty()
         .isString(), // Asegúrate de que id_user es un string no vacío
     (req, res, next) => {
         return validateResults(req, res, next);
     }
-]
+]*/
 
 
 const validatorDeleteItem = [
-    check("id_user")
+    check("user_id")
         .exists()
         .notEmpty()
         .isString(), // Asegúrate de que id_user es un string no vacío
@@ -58,39 +58,37 @@ const validatorDeleteItem = [
 ];
 
 const validatorUpdateItem = [
-    check("id_user")
-        .exists()
+    check("user_id")
         .notEmpty()
-        .isString(), // Asegúrate de que id_user es un string no vacío
-
-    check("title")
-        .optional()
-        .notEmpty(),
-
-    check("synopsis")
-        .optional()
-        .notEmpty(),
-
-    check("release_year")
-        .optional()
+        .isString(), // id_user es un string no vacío
+        
+    check("idTmbd")
         .notEmpty()
         .isNumeric(),
 
-    check("runtime")
-        .optional()
+    check ("title")
         .notEmpty(),
 
     check("poster_url")
-        .optional()
         .notEmpty(),
 
-    check("trailer")
-        .optional()
+    check ("overview")
         .notEmpty(),
 
+    check ("comment")
+        .notEmpty()
+        .isString(), 
+
+    check ("releaseDate")
+        .notEmpty()
+        .isNumeric(),
+
+    check ("runtime")
+        .notEmpty(),
+  
     (req, res, next) => {
         return validateResults(req, res, next);
     }
 ];
 
-module.exports={validatorCreateItem,validatorGetItem,validatorDeleteItem,validatorUpdateItem}
+module.exports={validatorCreateItem,validatorDeleteItem,validatorUpdateItem}

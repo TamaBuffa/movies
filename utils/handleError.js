@@ -1,6 +1,6 @@
 const handleHttpError =(res, message='Algo sucedio', code=403) =>{
-    res.status(code);
-    res.send({error:message});
+    res.status(code).send({ error: message });
+    //res.send({error:message});
 };
 
 
